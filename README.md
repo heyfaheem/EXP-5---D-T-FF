@@ -17,7 +17,72 @@ Q(next) = T ⊕ Q   (Q(next) = Q if T = 0, Q(next) = Q' if T = 1)
 ## Design / RTL Program
 
 ```
+// gedit dff_tff.v
+ 
+module dff (
+    input  wire clk,   // clock
+    input  wire rst,   // asynchronous active-high reset
+    input  wire D,     // data input
+    output reg  Q      // output
+);
+    always @(posedge clk or posedge rst) begin
+        if (rst)
+            Q <= 1'b0;
+        else
+            Q <= D;
+    end
+endmodule
+ 
+module tff (
+    input  wire clk,   // clock
+    input  wire rst,   // asynchronous active-high reset
+    input  wire T,     // toggle input
+    output reg  Q      // output
+);
+    always @(posedge clk or posedge rst) begin
+        if (rst)
+            Q <= 1'b0;
+        else if (T)
+            Q <= ~Q;
+        else
+            Q <= Q;
+    end
+endmodule
+```
 ## Testbench Program
+```
+// gedit dff_tff.v
+ 
+module dff (
+    input  wire clk,   // clock
+    input  wire rst,   // asynchronous active-high reset
+    input  wire D,     // data input
+    output reg  Q      // output
+);
+    always @(posedge clk or posedge rst) begin
+        if (rst)
+            Q <= 1'b0;
+        else
+            Q <= D;
+    end
+endmodule
+ 
+module tff (
+    input  wire clk,   // clock
+    input  wire rst,   // asynchronous active-high reset
+    input  wire T,     // toggle input
+    output reg  Q      // output
+);
+    always @(posedge clk or posedge rst) begin
+        if (rst)
+            Q <= 1'b0;
+        else if (T)
+            Q <= ~Q;
+        else
+            Q <= Q;
+    end
+endmodule
+```
 
 
 
@@ -79,6 +144,11 @@ Q(next) = T ⊕ Q   (T Flip-Flop)
 The design was compiled and simulated using Synopsys VCS, and the functionality was verified using DVE waveform analysis, matching the expected truth table.
 
 **## Output**
+<img width="959" height="530" alt="Screenshot 2026-11-18 133115" src="https://github.com/user-attachments/assets/3836f7fd-d277-4ce8-8f18-ae91599ddcdd" />
+
+<img width="956" height="497" alt="Screenshot 2026-11-18 133419" src="https://github.com/user-attachments/assets/add359b7-dc08-433b-b7c3-3c6b76e0eb19" />
+
+
 
 
 ## Viva-Voce Questions
